@@ -29,12 +29,12 @@ import java.util.stream.Collectors;
 public class SpawnProofLocation {
     private final static int reachDistance = 3;
     private final static int lightLevel = 11;
-    private final static int maxInteractionPerTick = 10;
+    private final static int maxInteractionPerTick = 1;
     private final static MinecraftClient mc = MinecraftClient.getInstance();
     private final static ClientWorld clientWorld = mc.world;
     private static boolean enabled = false;
     private static String previousMessage = null;
-    private static LinkedHashMap<Long, Long> nanotimeMap = new LinkedHashMap<>();
+    private static final LinkedHashMap<Long, Long> nanotimeMap = new LinkedHashMap<>();
     private final static ArrayList<Item> CarpetTypes = new ArrayList<>(Arrays.asList(Items.WHITE_CARPET, Items.RED_CARPET, Items.ORANGE_CARPET, Items.YELLOW_CARPET,
             Items.LIME_CARPET, Items.GREEN_CARPET, Items.LIGHT_BLUE_CARPET, Items.BLUE_CARPET, Items.PURPLE_CARPET, Items.MOSS_CARPET, Items.MAGENTA_CARPET, Items.PINK_CARPET,
             Items.GRAY_CARPET, Items.LIGHT_GRAY_CARPET, Items.BLACK_CARPET, Items.BROWN_CARPET, Items.CYAN_CARPET));
@@ -74,7 +74,7 @@ public class SpawnProofLocation {
         BlockPos.streamOutwards(playerPos, reachDistance, reachDistance, reachDistance).
                 filter(a-> isSpawnableBlock(a.asLong())).
                 filter(a-> playerPos.getSquaredDistance(a,true)<reachDistance * reachDistance).
-                filter(a-> !playerPos.isWithinDistance(a, 1)).
+                filter(a-> !playerPos.isWithinDistance(a, 2)).
                 filter(a-> !nanotimeMap.containsValue(a.asLong()) || nanotimeMap.get(a.asLong()) > System.nanoTime()+1e9).
                 limit(maxInteractionPerTick).
                 forEach(SpawnProofLocation::placeCarpet);
