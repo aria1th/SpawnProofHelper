@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "spawnproofhelper",
+  "version": "1.0.0",
+
+  "name": "SpawnProofHelper",
+  "description": "places carpets at spawnable blocks",
+  "authors": [
+    "AngelBottomless"
+  ],
+  "contact": {
+    "homepage": "https://github.com/aria1th/SpawnProofHelper",
+    "sources": "https://github.com/aria1th/SpawnProofHelper"
+  },
+
+  "license": "",
+  "icon": "assets/spawnproofhelper/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ]
+  },
+  "mixins": [
+    "spawnproofhelper.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
