@@ -34,9 +34,15 @@ public class SpawnProofLocation {
     private static boolean enabled = false;
     private static String previousMessage = null;
     private static final LinkedHashMap<Long, Long> nanotimeMap = new LinkedHashMap<>();
-    private static final List<Item> spawnProofItems =  Stream.of(ItemTags.CARPETS.values().stream(), ItemTags.SLABS.values().stream().filter(Item::isFireproof),
-                    ItemTags.WOODEN_PRESSURE_PLATES.values().stream(),ItemTags.BUTTONS.values().stream() ).flatMap(a->a).collect(Collectors.toList());
-    private final static List<Item> CarpetTypes = ItemTags.CARPETS.values();
+    private static final List<Item> spawnProofItems =  Stream.of(
+                    ItemTags.CARPETS.values().stream(),
+                    ItemTags.SLABS.values().stream(),
+                    ItemTags.WOODEN_PRESSURE_PLATES.values().stream(),
+                    ItemTags.BUTTONS.values().stream(),
+                    Collections.singletonList(Items.MOSS_CARPET).stream()
+            )
+            .flatMap(a->a).collect(Collectors.toList());
+    //private final static List<Item> CarpetTypes = ItemTags.CARPETS.values();
     //private final static List<Item> SlabTypes = ItemTags.SLABS.values();
     //private final static List<Item> PressurePlateTypes = ItemTags.WOODEN_PRESSURE_PLATES.values();
     //private final static List<Item> ButtonTypes = ItemTags.BUTTONS.values();
