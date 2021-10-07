@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Direction;
@@ -20,11 +21,9 @@ import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.world.World;
 import net.minecraft.world.SpawnHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SpawnProofLocation {
     private final static int reachDistance = 3;
@@ -35,9 +34,12 @@ public class SpawnProofLocation {
     private static boolean enabled = false;
     private static String previousMessage = null;
     private static final LinkedHashMap<Long, Long> nanotimeMap = new LinkedHashMap<>();
-    private final static ArrayList<Item> CarpetTypes = new ArrayList<>(Arrays.asList(Items.WHITE_CARPET, Items.RED_CARPET, Items.ORANGE_CARPET, Items.YELLOW_CARPET,
-            Items.LIME_CARPET, Items.GREEN_CARPET, Items.LIGHT_BLUE_CARPET, Items.BLUE_CARPET, Items.PURPLE_CARPET, Items.MOSS_CARPET, Items.MAGENTA_CARPET, Items.PINK_CARPET,
-            Items.GRAY_CARPET, Items.LIGHT_GRAY_CARPET, Items.BLACK_CARPET, Items.BROWN_CARPET, Items.CYAN_CARPET));
+    private static final List<Item> spawnProofItems =  Stream.of(ItemTags.CARPETS.values().stream(), ItemTags.SLABS.values().stream().filter(Item::isFireproof),
+                    ItemTags.WOODEN_PRESSURE_PLATES.values().stream(),ItemTags.BUTTONS.values().stream() ).flatMap(a->a).collect(Collectors.toList());
+    private final static List<Item> CarpetTypes = ItemTags.CARPETS.values();
+    //private final static List<Item> SlabTypes = ItemTags.SLABS.values();
+    //private final static List<Item> PressurePlateTypes = ItemTags.WOODEN_PRESSURE_PLATES.values();
+    //private final static List<Item> ButtonTypes = ItemTags.BUTTONS.values();
     public static void tick(){
         if(enabled){
             doSpawnProofing();
@@ -97,7 +99,7 @@ public class SpawnProofLocation {
     }
     private static int getCarpetItem(){
         int slotNum = -1;
-        for (Item i : CarpetTypes){
+        for (Item i : spawnProofItems){
             slotNum = mc.player.getInventory().getSlotWithStack(i.getDefaultStack());
             if (slotNum != -1){
                 return slotNum;
