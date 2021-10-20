@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import aria1th.main.spawnproofhelper.config.Configs;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.tag.ItemTags;
@@ -53,6 +54,10 @@ public class SpawnProofLocation {
     }
     public static void switchOnOff(){
         enabled = !enabled;
+        printMessageToChat(Text.of("Spawnproofing Turned "+ "%s".format(enabled ? "ON" : "OFF")));
+    }
+    public static void refreshInstance(){
+        enabled = Configs.getSpawnProofOn();
         printMessageToChat(Text.of("Spawnproofing Turned "+ "%s".format(enabled ? "ON" : "OFF")));
     }
     public static boolean isEnabled(){

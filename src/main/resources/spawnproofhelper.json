@@ -7,7 +7,10 @@
   ],
   "client": [
     "MixinMinecraftClient",
-    "MixinClientPlayerInteractionManager"
+    "MixinClientPlayerInteractionManager",
+    "OptionMixin",
+    "GameOptionsMixin",
+    "KeyBindingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

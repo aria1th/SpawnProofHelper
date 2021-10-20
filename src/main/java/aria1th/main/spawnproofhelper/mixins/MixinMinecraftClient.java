@@ -32,8 +32,8 @@ public class MixinMinecraftClient {
     public HitResult crosshairTarget;
     @Inject(method = "doItemUse", at = @At(value = "HEAD"))
     private void switchOnOff(CallbackInfo ci){
-        if (this.crosshairTarget.getType() == HitResult.Type.MISS) {
-            SpawnProofLocation.switchOnOff();
-        }
+        //if (this.crosshairTarget.getType() == HitResult.Type.MISS) {
+        //    SpawnProofLocation.switchOnOff();
+        //}
     }
 }

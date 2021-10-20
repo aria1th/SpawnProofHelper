@@ -19,6 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "aria1th.main.spawnproofhelper.SpawnProofHelperMod"
+    ],
+    "modmenu": [
+      "aria1th.main.spawnproofhelper.compat.modmenu.ModMenuImpl"
     ]
   },
   "mixins": [
