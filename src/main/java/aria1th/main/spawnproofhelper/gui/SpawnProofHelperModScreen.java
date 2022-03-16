@@ -46,8 +46,7 @@ public class SpawnProofHelperModScreen extends Screen {
         super.mouseClicked(mouseX, mouseY, button);
         return list.mouseClicked(mouseX, mouseY, button);
     }
-
-    @Override
+	
     public void onClose() {
         try {
             configs.saveToFile();
