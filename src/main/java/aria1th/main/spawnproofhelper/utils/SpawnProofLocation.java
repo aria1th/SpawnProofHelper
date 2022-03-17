@@ -5,9 +5,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import aria1th.main.spawnproofhelper.config.Configs;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -15,8 +14,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.text.Text;
+import net.minecraft.item.Items;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.SpawnHelper;
 
@@ -33,22 +34,12 @@ public class SpawnProofLocation {
     private static boolean enabled = false;
     private static String previousMessage = null;
     private static final LinkedHashMap<Long, Long> nanotimeMap = new LinkedHashMap<>();
-    private static final List<Item> spawnProofItems = Registry.ITEM.stream().filter(SpawnProofLocation::predicateItems).toList();
+	private static final List<Item> spawnProofItems = Registry.ITEM.stream().filter(SpawnProofLocation::predicateItems).toList();
 
 	private static boolean predicateItems(Item item){
 		return item.getTranslationKey().contains("_carpet") || item.getTranslationKey().contains("_pressure_plate") ||
 			item.getTranslationKey().contains("_slab") || item.getTranslationKey().contains("_button");
 	}
-
-	/**Stream.of(
-                    ItemTags.CARPETS.values().stream(),
-                    ItemTags.SLABS.values().stream(),
-                    ItemTags.WOODEN_PRESSURE_PLATES.values().stream(),
-                    ItemTags.BUTTONS.values().stream(),
-                    Collections.singletonList(Items.MOSS_CARPET).stream()
-            )
-            .flatMap(a->a).collect(Collectors.toList());
-	 **/
     //private final static List<Item> CarpetTypes = ItemTags.CARPETS.values();
     //private final static List<Item> SlabTypes = ItemTags.SLABS.values();
     //private final static List<Item> PressurePlateTypes = ItemTags.WOODEN_PRESSURE_PLATES.values();
@@ -60,10 +51,6 @@ public class SpawnProofLocation {
     }
     public static void switchOnOff(){
         enabled = !enabled;
-        printMessageToChat(Text.of("Spawnproofing Turned "+ "%s".format(enabled ? "ON" : "OFF")));
-    }
-    public static void refreshInstance(){
-        enabled = Configs.getSpawnProofOn();
         printMessageToChat(Text.of("Spawnproofing Turned "+ "%s".format(enabled ? "ON" : "OFF")));
     }
     public static boolean isEnabled(){
@@ -92,7 +79,7 @@ public class SpawnProofLocation {
         BlockPos playerPos = MinecraftClient.getInstance().player.getBlockPos();
         BlockPos.streamOutwards(playerPos, reachDistance, reachDistance, reachDistance).
                 filter(a-> isSpawnableBlock(a.asLong())).
-                filter(a-> playerPos.getSquaredDistance(a)<reachDistance * reachDistance).
+                filter(a-> playerPos.getSquaredDistance(a,true)<reachDistance * reachDistance).
                 filter(a-> !playerPos.isWithinDistance(a, 2)).
                 filter(a-> !nanotimeMap.containsValue(a.asLong()) || nanotimeMap.get(a.asLong()) > System.nanoTime()+1e9).
                 limit(maxInteractionPerTick).
