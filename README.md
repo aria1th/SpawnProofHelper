@@ -1,7 +1,7 @@
 # SpawnProofHelper
 fabric 1.17 mod to place carpet automatically around you
 # How to use
-get carpet in inventory, right click at 'nowhere'.
+get carpet, slab, wooden pressure plate, buttons in inventory, press ' (aposthrophe key) to toggle, ESC to stop anyway.
 #Requirements
 Fabric 1.17+, fabric loader, this mod. MultiMC is recommended.
 # How to build
