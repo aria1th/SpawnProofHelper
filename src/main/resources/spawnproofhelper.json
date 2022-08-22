@@ -2,15 +2,13 @@
   "required": true,
   "minVersion": "0.8",
   "package": "aria1th.main.spawnproofhelper.mixins",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],
   "client": [
     "MixinMinecraftClient",
     "MixinClientPlayerInteractionManager",
-    "OptionMixin",
-    "GameOptionsMixin",
-    "KeyBindingMixin"
+    "MixinKeyboard"
   ],
   "injectors": {
     "defaultRequire": 1
