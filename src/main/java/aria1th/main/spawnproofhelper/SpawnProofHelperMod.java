@@ -11,6 +11,6 @@ public class SpawnProofHelperMod implements ModInitializer {
     @Override
     public void onInitialize() {
 		System.out.println("SpawnproofHelper initialized");
-	    System.out.println("SpawnproofHelper default key is set to S");
+	    System.out.println("SpawnproofHelper default key is set to '(apostrophe)");
     }
 }
