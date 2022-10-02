@@ -40,6 +40,11 @@ public class SpawnProofLocation {
                     ItemTags.WOODEN_PRESSURE_PLATES,
                     ItemTags.BUTTONS
             );
+	private static final List<Item> extraItemList = List.of(
+		Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
+		Items.HEAVY_WEIGHTED_PRESSURE_PLATE //Add more blocks if you need
+		
+	);
     //private final static List<Item> CarpetTypes = ItemTags.CARPETS.values();
     //private final static List<Item> SlabTypes = ItemTags.SLABS.values();
     //private final static List<Item> PressurePlateTypes = ItemTags.WOODEN_PRESSURE_PLATES.values();
@@ -108,9 +113,14 @@ public class SpawnProofLocation {
     private static int getCarpetItem(){
 	    Inventory inventory = mc.player.getInventory();
 		for (int i = 0; i < inventory.size(); i++){
+			ItemStack stack = inventory.getStack(i);
 			for (TagKey<Item> predicates : spawnProofItems){
-				ItemStack stack = inventory.getStack(i);
 				if (stack.isIn(predicates)){
+					return i;
+				}
+			}
+			for (Item extras : extraItemList){
+				if (stack.getItem() == extras){
 					return i;
 				}
 			}
