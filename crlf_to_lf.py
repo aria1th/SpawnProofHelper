@@ -1,7 +1,7 @@
 import glob
 import os
 
-files = glob.glob('*.*')
+files = glob.glob('*')
 
 
 WINDOWS_LINE_ENDING = b'\r\n'
@@ -10,7 +10,8 @@ UNIX_LINE_ENDING = b'\n'
 # relative or absolute file path, e.g.:
 
 for file in files:
-    if '.py' in file: continue
+    if '.py' in file or os.path.isdir(file): continue
+    print(file)
     with open(file, 'rb') as open_file:
         content = open_file.read()
     content = content.replace(WINDOWS_LINE_ENDING, UNIX_LINE_ENDING)
