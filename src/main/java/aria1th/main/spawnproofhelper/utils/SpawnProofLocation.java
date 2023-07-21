@@ -8,8 +8,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Direction;
@@ -82,7 +82,7 @@ public class SpawnProofLocation {
         if (!world.getBlockState(blockPos.down()).allowsSpawning(world, blockPos.down(), EntityType.ZOMBIFIED_PIGLIN)){
             return false;
         }
-        return world.isAir(blockPos) || world.getBlockState(blockPos).getMaterial().isReplaceable() && world.isAir(blockPos.up());
+        return world.isAir(blockPos) || world.getBlockState(blockPos).isReplaceable() && world.isAir(blockPos.up());
     }
     public static void doSpawnProofing(){
         BlockPos playerPos = MinecraftClient.getInstance().player.getBlockPos();
